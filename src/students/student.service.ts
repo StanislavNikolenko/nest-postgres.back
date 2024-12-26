@@ -2,11 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { CreateStudentDto } from "./dto/create-student.dto";
 import { Repository } from "typeorm";
 import { Student } from "./entities/student.entity";
-import { InjectRepository } from "@nestjs/typeorm";
 import { BadRequestException } from "@nestjs/common";
 import { StudentResponseDto } from "./dto/student-response.dto";
 import { UpdateStudentDto } from "./dto/update-student.dto";
 import { NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class StudentsService {
