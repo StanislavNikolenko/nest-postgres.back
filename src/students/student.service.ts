@@ -6,11 +6,8 @@ import { Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BadRequestException } from '@nestjs/common';
-
-export type StudentResponse = {
-  id: string;
-  name: string;
-};
+import { StudentResponseDto } from './dto/student-response.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Injectable()
 export class StudentsService {
@@ -19,7 +16,7 @@ export class StudentsService {
     private studentRepository: Repository<Student>,
   ) {}
 
-  async create(createStudentDto: CreateStudentDto): Promise<StudentResponse> {
+  async create(createStudentDto: CreateStudentDto): Promise<StudentResponseDto> {
     const { name } = createStudentDto;
     const existingUser = await this.studentRepository.findOne({
       where: { name }
@@ -30,7 +27,13 @@ export class StudentsService {
     return this.studentRepository.save(createStudentDto);
   }
 
-  async getStudentById(id: string): Promise<StudentResponse> {
+  async getById(id: string): Promise<StudentResponseDto> {
     return this.studentRepository.findOne({where: { id}});
+  }
+
+  async update(id: Student['id'], updateStudentDto: UpdateStudentDto | Partial<Student>): Promise<Student> {
+    const existingStudent: Student = await this.studentRepository.findOne({where: {id}});
+    Object.assign(existingStudent, updateStudentDto);
+    return this.studentRepository.save(existingStudent);
   }
 }

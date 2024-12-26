@@ -6,13 +6,14 @@ import {
   ValidationPipe,
   HttpCode,
   Get,
-  Param
+  Param,
+  Patch
 } from '@nestjs/common';
 import { StudentsService } from './student.service';
-import { CreateStudentDto } from './dto/create-student.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { StudentResponseDto } from './dto/student-response.dto';
-import { StudentResponse } from './student.service';
+import { UpdateStudentDto } from './dto/update-student.dto';
+import { CreateStudentDto } from './dto/create-student.dto';
 
 @ApiTags('Students')
 @Controller('students')
@@ -24,7 +25,7 @@ export class StudentsController {
   @UsePipes(ValidationPipe)
   @Post()
   @HttpCode(201)
-  create(@Body() createStudentDto: CreateStudentDto): Promise<StudentResponse> {
+  create(@Body() createStudentDto: CreateStudentDto): Promise<StudentResponseDto> {
     return this.studentsService.create(createStudentDto);
   }
 
@@ -35,8 +36,20 @@ export class StudentsController {
     type: StudentResponseDto,
   })
   @Get(":id")
-  async getStudentById(@Param("id") id: string): Promise<StudentResponse> {
-    return await this.studentsService.getStudentById(id);
+  async getById(@Param("id") id: string): Promise<StudentResponseDto> {
+    return await this.studentsService.getById(id);
+  }
+
+  @ApiOperation({ summary: 'Update student data' })
+  @ApiResponse({ status: 201, type: StudentResponseDto })
+  @UsePipes(ValidationPipe)
+  @Patch(':studentId')
+  @HttpCode(201)
+  update(
+    @Param('studentId') id: string,
+    @Body() updateUserDto: UpdateStudentDto,
+  ) {
+    return this.studentsService.update(id, updateUserDto);
   }
 }
 

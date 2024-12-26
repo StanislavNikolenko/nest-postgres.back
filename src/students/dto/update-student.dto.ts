@@ -1,13 +1,12 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateStudentDto } from './create-student.dto';
-import { IsBoolean, IsInt, IsOptional } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { faker } from '@faker-js/faker';
 
-export class UpdateUserDto extends PartialType(CreateStudentDto) {
+export class UpdateStudentDto extends PartialType(CreateStudentDto) {
+  @ApiProperty({ example: faker.person.firstName() })
   @IsOptional()
-  @IsBoolean()
-  readonly isTestCompleted?: boolean;
-
-  @IsOptional()
-  @IsInt()
-  readonly spikesAge?: number;
+  @IsString({ message: '"name" Must be a string value' })
+  readonly name: string;
 }
