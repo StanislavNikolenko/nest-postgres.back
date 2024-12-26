@@ -7,7 +7,7 @@ import { Student } from './entities/student.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BadRequestException } from '@nestjs/common';
 
-type StudentResponse = {
+export type StudentResponse = {
   id: string;
   name: string;
 };
@@ -28,5 +28,9 @@ export class StudentsService {
       throw new BadRequestException(`User ${name} already exists`);
     }
     return this.studentRepository.save(createStudentDto);
+  }
+
+  async getStudentById(id: string): Promise<StudentResponse> {
+    return this.studentRepository.findOne({where: { id}});
   }
 }
