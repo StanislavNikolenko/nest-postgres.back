@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { StudentsModule } from './students/student.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Student } from './students/entities/student.entity';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { StudentsModule } from "./students/student.module";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Student } from "./students/entities/student.entity";
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { Student } from './students/entities/student.entity';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
-        type: 'postgres',
+        type: "postgres",
         host: process.env.POSTGRES_HOST,
         port: +process.env.POSTGRES_PORT,
         username: process.env.POSTGRES_USERNAME,
@@ -21,7 +21,7 @@ import { Student } from './students/entities/student.entity';
         synchronize: false,
       }),
     }),
-    StudentsModule
+    StudentsModule,
   ],
 })
 export class AppModule {}

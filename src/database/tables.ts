@@ -1,3 +1,3 @@
 export enum DBTables {
-  STUDENTS = 'students',
+  STUDENTS = "students",
 }

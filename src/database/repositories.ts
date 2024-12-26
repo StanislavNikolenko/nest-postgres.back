@@ -1,3 +1,3 @@
 export enum DBRepositories {
-  STUDENT = 'STUDENT_REPOSITORY',
+  STUDENT = "STUDENT_REPOSITORY",
 }
