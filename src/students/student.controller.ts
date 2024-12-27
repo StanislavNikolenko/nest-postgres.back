@@ -16,11 +16,20 @@ import { StudentResponseDto } from "./dto/student-response.dto";
 import { UpdateStudentDto } from "./dto/update-student.dto";
 import { CreateStudentDto } from "./dto/create-student.dto";
 
+/***
+ * This controller has examples for CRUD operations: 
+ * - CREATE
+ * - READ
+ * - UPDATE
+ * - DELETE
+ * ***/
+
 @ApiTags("Students")
 @Controller("students")
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
+  // Create.
   @ApiOperation({ summary: "Create student" })
   @ApiResponse({ status: 201, type: StudentResponseDto })
   @UsePipes(ValidationPipe)
@@ -32,6 +41,7 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
+  // Read.
   @ApiOperation({ summary: "Get student by id" })
   @ApiResponse({
     status: 200,
@@ -43,6 +53,7 @@ export class StudentsController {
     return this.studentsService.getById(id);
   }
 
+  // Update.
   @ApiOperation({ summary: "Update student data" })
   @ApiResponse({ status: 201, type: StudentResponseDto })
   @UsePipes(ValidationPipe)
@@ -55,6 +66,7 @@ export class StudentsController {
     return this.studentsService.update(id, updateUserDto);
   }
 
+  // Delete.
   @ApiOperation({ summary: "Delete a student" })
   @ApiResponse({ status: 201, type: StudentResponseDto })
   @Delete(":studentId")

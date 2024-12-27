@@ -1,5 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ContactInfo } from "./contact-info.entity";
+import { OneToOne, OneToMany } from "typeorm";
+import { Task } from "./task.entity";
+import { Meeting } from "./meeting.entity";
 
 @Entity("students")
 export class Student {
@@ -10,4 +14,20 @@ export class Student {
   @ApiProperty({ example: "John" })
   @Column({ type: "varchar", length: 50, name: "name", nullable: true })
   name: string;
+
+  @ManyToOne(() => Student, (student) => student.directReports, {onDelete: "SET NULL"})
+  manager: Student
+
+  @OneToMany(() => Student, (student) => student.manager)
+  directReports: Student[]
+
+  @OneToOne(() => ContactInfo, (contactInfo) => contactInfo.student)
+  contactInfo: ContactInfo;
+
+  @OneToMany(() => Task, (task) => task.student)
+  tasks: Task[];
+
+  @ManyToMany(() => Meeting, (meeting) => meeting.attendees)
+  @JoinTable()
+  meetings: Meeting[]
 }
