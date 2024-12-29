@@ -15,13 +15,14 @@ import { Meeting } from "./students/entities/meeting.entity";
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: "postgres",
-        host: process.env.POSTGRES_HOST,
-        port: +process.env.POSTGRES_PORT,
-        username: process.env.POSTGRES_USERNAME,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB_NAME,
+        host: process.env.DB_HOST,
+        port: +process.env.DB_PORT,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
         entities: [Student, ContactInfo, Task, Meeting],
-        synchronize: process.env.NODE_ENV === 'local',
+        // The synchronize should be always false in production.
+        synchronize: process.env.NODE_ENV === "local",
       }),
     }),
     StudentsModule,

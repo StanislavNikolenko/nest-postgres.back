@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Student } from "./student.entity";
 
 @Entity("contact-info")
@@ -13,11 +19,11 @@ export class ContactInfo {
   phone: string;
 
   @ApiProperty()
-  @Column({ name: "email"})
+  @Column({ name: "email" })
   email: string;
 
   @OneToOne(() => Student, (student) => student.contactInfo, {
-    onDelete: 'CASCADE',
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   student: Student;

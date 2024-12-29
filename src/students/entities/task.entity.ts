@@ -14,7 +14,7 @@ export class Task {
   name: string;
 
   @ManyToOne(() => Student, (student) => student.tasks, {
-    onDelete: 'SET NULL',
+    onDelete: "SET NULL",
   })
   student: Student;
 }

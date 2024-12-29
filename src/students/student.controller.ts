@@ -17,11 +17,11 @@ import { UpdateStudentDto } from "./dto/update-student.dto";
 import { CreateStudentDto } from "./dto/create-student.dto";
 
 /***
- * This controller has examples for CRUD operations: 
- * - CREATE
- * - READ
- * - UPDATE
- * - DELETE
+ * This controller has examples for CRUD operations:
+ * - CREATE - create a new student entity.
+ * - READ   - get student entity by id.
+ * - UPDATE - update student entity.
+ * - DELETE - delete student entity.
  * ***/
 
 @ApiTags("Students")

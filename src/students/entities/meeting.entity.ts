@@ -1,8 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ContactInfo } from "./contact-info.entity";
-import { OneToOne, OneToMany } from "typeorm";
-import { Task } from "./task.entity";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Student } from "./student.entity";
 
 @Entity("meetings")
@@ -14,6 +11,8 @@ export class Meeting {
   @Column()
   zoomUrl: string;
 
-  @ManyToMany(() => Student, (student) => student.meetings, {onDelete: "SET NULL"})
-  attendees: Student[]
+  @ManyToMany(() => Student, (student) => student.meetings, {
+    onDelete: "SET NULL",
+  })
+  attendees: Student[];
 }
